@@ -1,0 +1,25 @@
+@font-face {
+  font-family: "HKGrotesk";
+  font-weight: 400;
+  src: url("asset/font/HKGrotesk-Regular.otf");
+}
+@font-face {
+  font-family: "HKGrotesk";
+  font-weight: 300;
+  src: url("asset/font/HKGrotesk-Light.otf");
+}
+@font-face {
+  font-family: "HKGrotesk";
+  font-weight: 500;
+  src: url("asset/font/HKGrotesk-SemiBold.otf");
+}
+@font-face {
+  font-family: "HKGrotesk";
+  font-weight: 600;
+  src: url("asset/font/HKGrotesk-Bold.otf");
+}
+@font-face {
+  font-family: "HKGrotesk";
+  font-weight: 700;
+  src: url("asset/font/HKGrotesk-ExtraBold.otf");
+}
