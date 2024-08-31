@@ -1,0 +1,175 @@
+nav {
+  height: 96px;
+  padding: 16px;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 100;
+
+  .background {
+    backdrop-filter: blur(10px);
+    background: #1d202188;
+    border-radius: 17px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+
+    & > input {
+      display: none;
+      margin-right: 20px;
+      width: 42px;
+      height: 42px;
+
+      z-index: 102;
+    }
+
+    .hamburger {
+      display: none;
+    }
+
+    .link {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      a {
+        line-height: 64px;
+        font-size: 16px;
+        font-weight: 500;
+        text-decoration: 0px underline #ebdbb200;
+        transition: translate 0.4s, text-decoration 0.4s ease 0.2s;
+
+        &:not(.contact):hover {
+          translate: 0 -5px;
+          text-decoration: 2px underline #ebdbb2ff;
+        }
+      }
+    }
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  a {
+    text-decoration: none;
+    color: #ebdbb2;
+    padding: 0 20px;
+  }
+
+  .home-link {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    font-size: 36px;
+    line-height: 80px;
+    font-weight: 600;
+    img {
+      height: 64px;
+      margin: 8px;
+      rotate: 0deg;
+    }
+    div {
+      padding-left: 0px;
+      color: #ebdbb2;
+      text-shadow: 3px 0 0 #a7352c, 8px 0 0 #1d2021;
+      transition: translate 0.4s;
+    }
+
+    &:hover {
+      img {
+        animation: spinny 5s linear infinite;
+      }
+      div {
+        translate: 5px 0;
+      }
+    }
+  }
+
+  .contact > div {
+    box-sizing: content-box;
+    height: 36px;
+    line-height: 36px;
+    font-weight: 600;
+    padding: 0 20px;
+    border: 2px solid #a7352c;
+    border-radius: 10px;
+    transition: background 0.4s;
+
+    &:hover {
+      background: #a7352c;
+    }
+  }
+}
+
+@keyframes spinny {
+  0% {
+    rotate: 0deg;
+  }
+  50% {
+    rotate: 180deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+@media (width <= 780px) {
+  .hamburger {
+    display: block !important;
+    width: 42px;
+    height: 42px;
+    margin-right: 20px;
+    padding-top: 5px;
+  }
+  .hamburger span {
+    display: block;
+    width: 42px;
+    height: 4px;
+    margin-bottom: 10px;
+    position: relative;
+    background: #ebdbb2;
+    border-radius: 2px;
+    transition: transform 0.4s, opacity 0.4s;
+  }
+  .background > input {
+    display: block !important;
+    translate: 58px 0;
+    opacity: 0;
+    &:checked ~ .link {
+      display: flex !important;
+    }
+    &:checked ~ .hamburger {
+      span:nth-child(1) {
+        transform: translateY(14px) rotate(45deg);
+      }
+      span:nth-child(2) {
+        transform: scale(172.1%);
+        opacity: 0;
+      }
+      span:nth-child(3) {
+        transform: translateY(-14px) rotate(-45deg);
+      }
+    }
+  }
+  .link {
+    display: none !important;
+    position: absolute !important;
+    flex-direction: column !important;
+    top: 96px;
+    right: 0px;
+    padding-bottom: 20px;
+    backdrop-filter: blur(10px);
+    background: #1d202188;
+    border-radius: 17px;
+  }
+}
+
+@media (width <= 470px) {
+  .home-link {
+    div {
+      font-size: 24px;
+    }
+  }
+}

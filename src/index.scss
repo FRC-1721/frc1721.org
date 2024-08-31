@@ -1,0 +1,102 @@
+@import "font.css";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "HKGrotesk", Geneva, Verdana, sans-serif;
+  font: optional;
+}
+
+main {
+  min-height: 100vh;
+  background-color: #282828;
+
+  #landing-image {
+    height: 85vh;
+    background-image: url("asset/holytoaster2.jpg");
+    background-size: cover;
+    background-position: center center;
+  }
+  .container {
+    padding: 0 16px 16px 16px;
+  }
+  .content {
+    margin: 0 auto;
+    margin-top: -200px;
+    background-color: #3c3936aa;
+    backdrop-filter: blur(10px);
+    max-width: 1200px;
+    color: #ebdbb2;
+    position: relative;
+    padding: 64px 48px;
+    border-radius: 32px;
+
+    .splash {
+      position: absolute;
+      top: -72px;
+      padding-left: 20px;
+      font-weight: 700;
+      font-size: 72px;
+      line-height: 45px;
+      text-shadow: 4px 0 0 #1d2021, 0 0 40px #1d2021;
+      .we-are {
+        padding-left: 42px;
+        font-size: 50px;
+      }
+      .number {
+        text-shadow: 5px 0 0 #a7352c, 10px 0 0 #1d2021;
+      }
+    }
+
+    h1 {
+      text-align: center;
+      margin: 42px 0 20px 0;
+      text-shadow: 2px 0 0 #a7352c;
+      font-size: 42px;
+    }
+
+    .sponsor {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: wrap;
+      a {
+        height: 150px;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+          max-height: 150px;
+          max-width: 100%;
+          vertical-align: center;
+        }
+      }
+    }
+
+    .sponsor-text {
+      font-weight: 500;
+      text-align: center;
+      margin-top: 32px;
+      font-size: 26px;
+    }
+  }
+}
+
+@media (width <= 600px) {
+  .content {
+    padding: 32px 20px !important;
+    .splash {
+      top: -60px !important;
+      font-size: 50px !important;
+      line-height: 40px !important;
+      .we-are {
+        font-size: 40px !important;
+      }
+    }
+  }
+}
+
+@media (width <= 780px) {
+}
