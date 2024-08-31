@@ -138,7 +138,7 @@ nav {
     translate: 58px 0;
     opacity: 0;
     &:checked ~ .link {
-      display: flex !important;
+      right: 0px;
     }
     &:checked ~ .hamburger {
       span:nth-child(1) {
@@ -154,15 +154,15 @@ nav {
     }
   }
   .link {
-    display: none !important;
     position: absolute !important;
     flex-direction: column !important;
     top: 96px;
-    right: 0px;
+    right: -200px;
     padding-bottom: 20px;
     backdrop-filter: blur(10px);
     background: #1d202188;
     border-radius: 17px;
+    transition: right 0.4s;
   }
 }
 
