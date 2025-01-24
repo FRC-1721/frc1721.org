@@ -1,0 +1,80 @@
+name: Build GHCR
+
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      - "*"
+  pull_request:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-publish-image:
+    name: Build and Publish Registry Image
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Extract Version Information
+        id: extract_hash
+        run: |
+          echo BUILD_HASH=$(git describe --abbrev=8 --always --tags --dirty) >> $GITHUB_ENV
+
+      - name: Generate Docker package path and sanitized branch name
+        id: docker-path
+        run: |
+          REPO_NAME=$(echo "${{ github.repository }}" | awk -F'/' '{print tolower($2)}')
+          ACTOR_NAME=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')
+          BRANCH_NAME=$(echo "${{ github.ref_name }}" | sed 's/[^a-zA-Z0-9]/-/g; s/[A-Z]/\L&/g')
+
+          # Save into github env
+          echo "PACKAGE_PATH=${{ env.REGISTRY }}/${ACTOR_NAME}/${REPO_NAME}" >> $GITHUB_ENV
+          echo "SANITIZED_BRANCH=${BRANCH_NAME}" >> $GITHUB_ENV
+
+          # Done!
+          echo "Generated Path: ${{ env.PACKAGE_PATH }} and tag: ${{ env.SANITIZED_BRANCH }}"
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          build-args: |
+            GIT_COMMIT=${{ env.BUILD_HASH }}
+            DEBUG=False
+          tags: |
+            ${{ env.PACKAGE_PATH }}:${{ env.SANITIZED_BRANCH }}
+            ${{ env.PACKAGE_PATH }}:latest
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Push stable tag if on main branch
+        if: github.ref == 'refs/heads/main'
+        run: |
+          docker tag ${{ env.PACKAGE_PATH }}:latest ${{ env.PACKAGE_PATH }}:stable
+          docker push ${{ env.PACKAGE_PATH }}:stable
