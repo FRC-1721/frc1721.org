@@ -1,26 +1,24 @@
-=== frc1721.org Website ===
-
-https://frc1721.org/
+# https://frc1721.org
 
 Rewrite of the frc1721.org website
 For Tidal Force, FRC Team 1721
-By dublUayaychtee
+By @dublUayaychtee
 
------ Development
+# Development
 
 This uses parcel.js to build the website
 (.scss files and <include> html tags)
 
-- Make sure you have `npm' installed
-- Git clone the repo
-- Run `npm install'
+ - Make sure you have `npm' installed
+ - Git clone the repo
+ - Run `npm install'
 
-Run `npm run build' to build the website,
+Run `npm run build` to build the website,
 output will be in the dist/ folder.
 
-Run `npm run dev' to start a live server
+Run `npm run dev` to start a live server
 that will update whenever you save a file.
 
 I recommend to delete the dist/ folder
-before running `npm run build' to remove
+before running `npm run build` to remove
 any old files before building again.
