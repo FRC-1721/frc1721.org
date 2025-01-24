@@ -3,7 +3,7 @@ name: Build GHCR
 on:
   push:
     branches:
-      - "main"
+      - "master"
     tags:
       - "*"
   pull_request:
@@ -73,8 +73,8 @@ jobs:
             ${{ env.PACKAGE_PATH }}:latest
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Push stable tag if on main branch
-        if: github.ref == 'refs/heads/main'
+      - name: Push stable tag if on master branch
+        if: github.ref == 'refs/heads/master'
         run: |
           docker tag ${{ env.PACKAGE_PATH }}:latest ${{ env.PACKAGE_PATH }}:stable
           docker push ${{ env.PACKAGE_PATH }}:stable
