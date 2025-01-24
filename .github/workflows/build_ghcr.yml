@@ -60,9 +60,10 @@ jobs:
 
           # Build Docker tag
           echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
+          echo "CUSTOM_TAG=${{ env.REGISTRY }}/${ACTOR_NAME}/${REPO_NAME}:${BRANCH_NAME}" >> $GITHUB_ENV
 
           # Debug output
-          echo "Generated Tag: ${{ env.BRANCH_NAME }}"
+          echo "Generated Tag: ${{ env.CUSTOM_TAG }}"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
@@ -73,12 +74,12 @@ jobs:
             GIT_COMMIT=${{ env.BUILD_HASH }}
             DEBUG=False
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.BRANCH_NAME }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.CUSTOM_TAG }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME | toLowerCase }}:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Push stable tag if on main branch
         if: github.ref == 'refs/heads/main'
         run: |
-          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:stable
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:stable
+          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME | toLowerCase }}:latest ${{ env.REGISTRY }}/${{ env.IMAGE_NAME | toLowerCase }}:stable
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME | toLowerCase }}:stable
