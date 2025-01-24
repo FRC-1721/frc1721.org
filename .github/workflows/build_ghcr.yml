@@ -1,0 +1,71 @@
+name: Build GHCR
+
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      - "*"
+  pull_request:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-publish-image:
+    name: Build and Publish Registry Image
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Extract Version Information
+        id: extract_hash
+        run: |
+          echo BUILD_HASH=$(git describe --abbrev=8 --always --tags --dirty) >> $GITHUB_ENV
+
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v5.2
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          build-args: |
+            GIT_COMMIT=${{ env.BUILD_HASH }}
+            DEBUG=False
+          tags: |
+            # Always push to latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+            # Push to branch-specific tag
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.branch-name.outputs.current_branch | replace('refs/heads/', '') }}
+
+            # Push to stable if on main branch
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:stable
+
+          labels: ${{ steps.meta.outputs.labels }}
