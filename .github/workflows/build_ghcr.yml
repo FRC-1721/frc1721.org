@@ -73,13 +73,12 @@ jobs:
             GIT_COMMIT=${{ env.BUILD_HASH }}
             DEBUG=False
           tags: |
-            # Always push to latest
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-
-            # Push to branch-specific tag
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.CUSTOM_TAG }}
-
-            # Push to stable if on main branch
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:stable
-
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Push stable tag if on main branch
+        if: github.ref == 'refs/heads/main'
+        run: |
+          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:stable
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:stable
