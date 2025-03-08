@@ -60,13 +60,17 @@ jobs:
           # Done!
           echo "Generated Path: ${{ env.PACKAGE_PATH }} and tag: ${{ env.SANITIZED_BRANCH }}"
 
+      - name: Inject Git commit into the build
+        run: |
+          echo "GIT_COMMIT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
           build-args: |
-            GIT_COMMIT=${{ env.BUILD_HASH }}
+            GIT_COMMIT=${{ env.GIT_COMMIT }}
             DEBUG=False
           tags: |
             ${{ env.PACKAGE_PATH }}:${{ env.SANITIZED_BRANCH }}

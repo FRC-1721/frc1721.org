@@ -4,7 +4,8 @@
   "browserslist": "> 0.1%, last 2 versions, not dead",
   "scripts": {
     "dev": "parcel",
-    "build": "parcel build"
+    "build": "parcel build",
+    "build:inject": "node -e \"const fs = require('fs'); const commit = require('child_process').execSync('git rev-parse --short HEAD').toString().trim(); let html = fs.readFileSync('./dist/index.html', 'utf8'); html = html.replace(/__COMMIT__/g, commit); fs.writeFileSync('./dist/index.html', html);\""
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.12.0",
