@@ -1,0 +1,156 @@
+.Holy {
+    width: 1024px;
+    width: 100%;
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+
+.Rotom {
+    height: 700px;
+    width: 1024px;
+    width: 100%;
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+
+.Nada {
+    height: 100%;
+    width: 100%;
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+
+@import "font.css";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "HKGrotesk", Geneva, Verdana, sans-serif;
+}
+
+main {
+  min-height: 100vh;
+  background-color: #282828;
+
+  #landing-image {
+    height: 85vh;
+    background-image: url("asset/holytoaster2.jpg");
+    background-size: cover;
+    background-position: center center;
+  }
+  .container {
+    padding: 0 16px 16px 16px;
+  }
+  .content {
+    margin: 0 auto;
+    margin-top: -200px;
+    background-color: #3c3936aa;
+    backdrop-filter: blur(10px);
+    max-width: 1200px;
+    color: #ebdbb2;
+    position: relative;
+    border-radius: 32px;
+    padding: 64px 0;
+
+    & > * {
+      margin-right: 48px;
+      margin-left: 48px;
+    }
+
+    .splash {
+      position: absolute;
+      top: -72px;
+      padding-left: 20px;
+      font-weight: 700;
+      font-size: 72px;
+      line-height: 45px;
+      text-shadow: 4px 0 0 #1d2021, 0 0 40px #1d2021;
+      .we-are {
+        padding-left: 42px;
+        font-size: 50px;
+      }
+      .number {
+        text-shadow: 5px 0 0 #a7352c, 10px 0 0 #1d2021;
+      }
+    }
+
+    h1 {
+      text-align: center;
+      margin: 42px 0 20px 0;
+      text-shadow: 2px 0 0 #a7352c;
+      font-size: 42px;
+    }
+
+    h2 {
+        font-size: 50px;
+    }
+
+    .sponsor {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: wrap;
+      a {
+        height: 150px;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+          max-height: 150px;
+          max-width: 100%;
+          vertical-align: center;
+        }
+      }
+    }
+
+    .sponsor-text {
+      font-weight: 500;
+      text-align: center;
+      margin-top: 32px;
+      font-size: 26px;
+    }
+
+    .team {
+      margin: 32px 0;
+      position: relative;
+
+      img {
+        width: 100%;
+        display: block;
+      }
+
+      span {
+        position: absolute;
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #1d2021;
+        font-size: 20px;
+        font-weight: 400;
+        font-style: italic;
+      }
+    }
+  }
+}
+
+@media (width <= 600px) {
+  .content {
+    & > * {
+      margin-right: 20px;
+      margin-left: 20px;
+    }
+    .splash {
+      top: -60px !important;
+      font-size: 50px !important;
+      line-height: 40px !important;
+      .we-are {
+        font-size: 40px !important;
+      }
+    }
+    .team span {
+      font-size: 16px !important;
+    }
+  }
+}
