@@ -22,3 +22,6 @@ that will update whenever you save a file.
 I recommend to delete the dist/ folder
 before running `npm run build` to remove
 any old files before building again.
+
+#Updates
+09/24/2025 - SK - Added Sponsor Us Page

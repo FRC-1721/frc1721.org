@@ -1,3 +1,25 @@
+.Holy {
+    width: 1024px;
+    width: 100%;
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+
+
+.Rotom {
+    width: 1024px;
+    width: 100%;
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+
+.Nada {
+    height: 100%;
+    width: 100%;
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+
 @import "font.css";
 
 * {
@@ -53,15 +75,15 @@ main {
       }
     }
 
-    .sponsor-list {
-      padding-left: 20px;
-    }
-
     h1 {
       text-align: center;
       margin: 42px 0 20px 0;
       text-shadow: 2px 0 0 #a7352c;
       font-size: 42px;
+    }
+
+    h2 {
+        font-size: 50px;
     }
 
     .sponsor {
